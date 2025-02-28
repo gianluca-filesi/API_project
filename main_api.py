@@ -2,12 +2,12 @@ from fastapi import FastAPI
 import pickle
 import pandas as pd
 
+# Initialize FastAPI app
+app = FastAPI()
+
 # Load trained model
 with open("Notebook/best_gradient_boosting_model.pkl", "rb") as f:
     model = pickle.load(f)
-
-# Initialize FastAPI app
-app = FastAPI()
 
 # Define manufacturer options (Top 90% manufacturers + "Other")
 MANUFACTURERS = ["HYUNDAI", "TOYOTA", "MERCEDES-BENZ", "FORD", "CHEVROLET", 

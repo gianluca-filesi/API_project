@@ -3,10 +3,11 @@ numpy
 matplotlib
 seaborn
 scipy
-scikit-learn
+scikit-learn==1.5.2
 
 fastapi
 uvicorn
 pydantic
 requests
 render
+requirements

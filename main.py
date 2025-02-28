@@ -8,22 +8,70 @@ st.write("Enter car details below to predict the price:")
 
 # Manufacturer selection
 manufacturers = ["HYUNDAI", "TOYOTA", "MERCEDES-BENZ", "FORD", "CHEVROLET", 
-                 "BMW", "LEXUS", "HONDA", "NISSAN", "VOLKSWAGEN", "OTHER"]
+                 "BMW", "LEXUS", "HONDA", "NISSAN", "VOLKSWAGEN", "Other", "KIA", "OPEL", "SSANGYONG"]
+manufacturers.sort()
 
 manufacturer = st.selectbox("Select Manufacturer", manufacturers)
+wheel = st.selectbox("Wheel Right-hand drive", ["Yes", "No"])
+leather = st.selectbox("Leather interior", ["Yes", "No"])
+doors = st.selectbox("Select Number of Doors", ["2/3", "4/5", "More than 5"])
+drive = st.selectbox("Select Drive", ["4x4", "Front", "Rear"])
+gear = st.selectbox("Select Gear Type", ['Automatic', 'Manual', 'Tiptronic', 'Variator'])
+fuels = ['Hybrid', 'Petrol', 'Diesel', 'CNG', 'Plug-in Hybrid', 'LPG', 'Hydrogen']
+fuels.sort()
+
+fuel = st.selectbox("Select Fuel Type", fuels)
+turbo = st.selectbox("Select Turbo", ["Yes", "No"])
+
+colors = ["Beige", "Black","Brown", "Carnelian", "White", 
+        "Silver", "Grey", "Blue", "Red", "Green", "Golden",
+        "Orange", "Pink", "Purple", "Sky blue", "Yellow","Carnelian red"]
+colors.sort()
+
+color = st.selectbox("Select Color", colors)
+
+
+
+categories =  ['Jeep', 'Hatchback', 'Sedan', 'Microbus', 'Goods wagon', 'Universal', 'Coupe',
+                'Minivan', 'Cabriolet', 'Limousine', 'Pickup']
+categories.sort()
+category = st.selectbox("Select Category", categories)
 
 # Year and Mileage Input
-year = st.number_input("Enter Car Year", min_value=2000, max_value=2025, value=2018)
+levy = st.number_input("Enter Levy", min_value=0, value=0)
+year = st.number_input("Enter Car Year", min_value=1930, max_value=2025, value=2018)
+engine = st.number_input("Enter Engine Volume", min_value=1, max_value=10, value=5)
 mileage = st.number_input("Enter Car Mileage", min_value=0, value=50000)
+airbags = st.number_input("Enter Number of Airbags", min_value=0, value=10)
+cylinders = st.number_input("Enter Number of Cylinders", min_value=1, value=10)
+
+doors_mapping = {
+    "2/3": "02-Mar",
+    "4/5": "04-May",
+    "More than 5": ">5"
+}
 
 # Button to predict price
 if st.button("Predict Price"):
     # Prepare data for FastAPI request
     input_data = {
+        "levy": levy,
         "year": year,
+        "engine": engine,
+        "cylinders": 4,
         "mileage": mileage,
-        **{f"manufacturer_{m}": int(m == manufacturer) for m in manufacturers}  # One-hot encoding
-    }
+        "airbags": airbags,
+        "turbo": int(turbo == "Yes"),
+        **{f"category_{c}": int(c == category) for c in categories},
+        **{f"fuel_{f}": int(f == fuel) for f in fuels},
+        **{f"gear_{g}": int(g == gear) for g in ['Automatic', 'Manual', 'Tiptronic', 'Variator']},
+        **{f"drive_{d}": int(d == drive) for d in ["4x4", "Front", "Rear"]},
+        **{f"doors_{doors_mapping[d]}": int(d == doors) for d in doors_mapping},
+        **{f"color_{c}": int(c in color) for c in colors},
+        leather: int(leather == "Yes"),
+        wheel: int(wheel == "Yes"),
+        **{f"manufacturer_{m}": int(m == manufacturer) for m in manufacturers},
+        }
 
     # Call FastAPI endpoint
     api_url = "http://127.0.0.1:8000/predict"  # Update this when deployed
