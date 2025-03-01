@@ -72,7 +72,7 @@ if st.button("Predict Price"):
         }
     
     # Call FastAPI endpoint
-    api_url = os.getenv("API_URL", "https://fastapi-backend-ggl5.onrender.com/predict")
+    api_url = os.getenv("API_URL", "https://fastapi-backend-9s5x.onrender.com/predict")
     response = requests.post(api_url, json=input_data)
     
     if response.status_code == 200:
