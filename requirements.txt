@@ -1,6 +1,7 @@
 fastapi == 0.112.2
 matplotlib == 3.10.0
 numpy == 1.26.4
+os
 pandas == 2.2.3
 pydantic == 2.10.3
 pykle 
