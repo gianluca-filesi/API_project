@@ -1,4 +1,7 @@
 #!/bin/bash
-# Start Supervisor to manage both processes
-pip install supervisor
-supervisord -c supervisord.conf
+
+# Install forego if not installed
+pip install forego
+
+# Start both FastAPI and Streamlit
+forego start
