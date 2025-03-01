@@ -13,6 +13,7 @@ with open("Notebook/best_gradient_boosting_model.pkl", "rb") as f:
 def home():
     return {"message": "Car Price Prediction API is running!"}
 
+
 # Prediction Endpoint
 @app.post("/predict")
 def predict_price(data: dict):

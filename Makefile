@@ -1,22 +1,22 @@
 # Make sure these targets do not reference any file named "run", "api", or "web"
-.PHONY: run api web
+.PHONY: run api web packages clean
 
 packages:
 	pip install -r requirements.txt
 
 # Target to run only the FastAPI server
 api:
-	uvicorn main_api:app --reload
+	uvicorn app.main_api:app --reload
 
 # Target to run only the Streamlit app
 web:
-	streamlit run main.py
+	streamlit run app/main.py
 
 # Combined target: run the FastAPI server (background) and the Streamlit app
 run:
-	tmux new-session -d -s my_app "uvicorn main_api:app --reload"
-	tmux split-window -t my_app:0 -v "streamlit run main.py"
-	tmux attach -t my_app
+	tmux new-session -d -s my_app "uvicorn app.main_api:app --reload"
+	tmux split-window -t my_app:0 -v "streamlit run app/main.py"
+
 
 clean:
 	@rm -f */version.txt
