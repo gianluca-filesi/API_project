@@ -14,8 +14,13 @@ web:
 
 # Combined target: run the FastAPI server (background) and the Streamlit app
 run:
+	@if ! command -v tmux &> /dev/null; then \
+		echo "tmux not found. Installing..."; \
+		sudo apt-get update && sudo apt-get install -y tmux; \
+	fi
 	tmux new-session -d -s my_app "uvicorn app.main_api:app --reload"
 	tmux split-window -t my_app:0 -v "streamlit run app/main.py"
+
 
 
 clean:
