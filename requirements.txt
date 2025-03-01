@@ -1,16 +1,12 @@
 fastapi == 0.112.2
 matplotlib == 3.10.0
 numpy == 1.26.4
-os
 pandas == 2.2.3
 pydantic == 2.10.3
-pykle 
-render
 requests == 2.32.3
-requirements
 scikit-learn==1.5.2
 scipy == 1.14.1
 seaborn == 0.13.2
 streamlit == 1.41.1
-tmux
+tmux == 3.3a
 uvicorn == 0.32.1
