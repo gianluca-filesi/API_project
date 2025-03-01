@@ -9,10 +9,6 @@ app = FastAPI()
 with open("Notebook/best_gradient_boosting_model.pkl", "rb") as f:
     model = pickle.load(f)
 
-# Define manufacturer options (Top 90% manufacturers + "Other")
-MANUFACTURERS = ["HYUNDAI", "TOYOTA", "MERCEDES-BENZ", "FORD", "CHEVROLET", 
-                 "BMW", "LEXUS", "HONDA", "NISSAN", "VOLKSWAGEN", "OTHER"]
-
 @app.get("/")
 def home():
     return {"message": "Car Price Prediction API is running!"}

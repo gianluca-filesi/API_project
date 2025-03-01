@@ -23,14 +23,12 @@ fuels.sort()
 fuel = st.selectbox("Select Fuel Type", fuels)
 turbo = st.selectbox("Select Turbo", ["Yes", "No"])
 
-colors = ["Beige", "Black","Brown", "Carnelian", "White", 
+colors = ["Beige", "Black","Brown","White", 
         "Silver", "Grey", "Blue", "Red", "Green", "Golden",
-        "Orange", "Pink", "Purple", "Sky blue", "Yellow","Carnelian red"]
+        "Orange", "Pink", "Purple", "Sky blue", "Yellow", "Carnelian red"]
 colors.sort()
 
 color = st.selectbox("Select Color", colors)
-
-
 
 categories =  ['Jeep', 'Hatchback', 'Sedan', 'Microbus', 'Goods wagon', 'Universal', 'Coupe',
                 'Minivan', 'Cabriolet', 'Limousine', 'Pickup']
@@ -55,24 +53,24 @@ doors_mapping = {
 if st.button("Predict Price"):
     # Prepare data for FastAPI request
     input_data = {
-        "levy": levy,
-        "year": year,
-        "engine": engine,
-        "cylinders": 4,
-        "mileage": mileage,
-        "airbags": airbags,
-        "turbo": int(turbo == "Yes"),
-        **{f"category_{c}": int(c == category) for c in categories},
-        **{f"fuel_{f}": int(f == fuel) for f in fuels},
-        **{f"gear_{g}": int(g == gear) for g in ['Automatic', 'Manual', 'Tiptronic', 'Variator']},
-        **{f"drive_{d}": int(d == drive) for d in ["4x4", "Front", "Rear"]},
-        **{f"doors_{doors_mapping[d]}": int(d == doors) for d in doors_mapping},
-        **{f"color_{c}": int(c in color) for c in colors},
-        leather: int(leather == "Yes"),
-        wheel: int(wheel == "Yes"),
-        **{f"manufacturer_{m}": int(m == manufacturer) for m in manufacturers},
+        "levy": levy, # Yes
+        "year": year, # No
+        "engine": engine, # No
+        "cylinders": cylinders, # No
+        "mileage": mileage, # No
+        "airbags": airbags, # No
+        "turbo": int(turbo == "Yes"), # No
+        **{f"category_{c}": int(c == category) for c in categories}, # No
+        **{f"fuel_{f}": int(f == fuel) for f in fuels}, # No
+        **{f"gear_{g}": int(g == gear) for g in ['Automatic', 'Manual', 'Tiptronic', 'Variator']}, # No
+        **{f"drive_{d}": int(d == drive) for d in ["4x4", "Front", "Rear"]}, # Yes
+        **{f"doors_{doors_mapping[d]}": int(d == doors) for d in doors_mapping}, # No
+        **{f"color_{c}": int(c == color) for c in colors}, # No
+        "leather": int(leather == "Yes"), # No
+        "wheel": int(wheel == "Yes"), # No
+        **{f"manufacturer_{m}": int(m == manufacturer) for m in manufacturers}, # No
         }
-
+    
     # Call FastAPI endpoint
     api_url = "http://127.0.0.1:8000/predict"  # Update this when deployed
     response = requests.post(api_url, json=input_data)
