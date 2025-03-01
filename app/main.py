@@ -71,7 +71,7 @@ if st.button("Predict Price"):
         }
     
     # Call FastAPI endpoint
-    api_url = "http://127.0.0.1:8000/predict"  # Update this when deployed
+    api_url = "http://127.0.0.1:10000"  # Update this when deployed
     response = requests.post(api_url, json=input_data)
     
     if response.status_code == 200:
