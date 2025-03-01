@@ -1,7 +1,9 @@
 #!/bin/bash
+# Start the Streamlit app on a custom port (e.g., $STREAMLIT_PORT)
+streamlit run app/main.py --server.port ${STREAMLIT_PORT:-8501} --server.address 0.0.0.0 &
 
-# Install forego if not installed
-pip install forego
+# Start the API server on the port provided by Render
+uvicorn app.main_api:app --host 0.0.0.0 --port $PORT
 
-# Start both FastAPI and Streamlit
-forego start
+# Wait for all background processes to finish
+wait
