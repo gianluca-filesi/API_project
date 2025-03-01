@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: fastapi-backend
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main_api:app --host 0.0.0.0 --port 8000"
+
+  - type: web
+    name: streamlit-frontend
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "streamlit run app/main.py --server.port 10000 --server.address 0.0.0.0"
+
