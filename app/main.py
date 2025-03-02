@@ -72,7 +72,7 @@ if st.button("Predict Price"):
         }
     
     # Call FastAPI endpoint
-    api_url = os.getenv("API_URL", "http://127.0.0.1:10000/predict")
+    api_url = os.getenv("API_URL", "https://fastapi-backend-9s5x.onrender.com/predict")
     response = requests.post(api_url, json=input_data)
     
     if response.status_code == 200:
@@ -80,5 +80,3 @@ if st.button("Predict Price"):
         st.success(f"💰 Estimated Car Price: **${predicted_price}**")
     else:
         st.error("Error: Could not get prediction. Make sure API is running.")
-
-   

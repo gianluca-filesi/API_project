@@ -4,11 +4,11 @@ services:
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "uvicorn app.main_api:app --host 0.0.0.0 --port 8000"
+    startCommand: "uvicorn app.fastapi:app --host 0.0.0.0 --port 8000"
 
   - type: web
     name: car-price-prediction
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "streamlit run app/pubblic_main.py --server.port 10000 --server.address 0.0.0.0"
+    startCommand: "streamlit run app/main.py --server.port 10000 --server.address 0.0.0.0"
